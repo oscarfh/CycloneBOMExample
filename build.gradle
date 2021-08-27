@@ -1,0 +1,90 @@
+plugins {
+    id("com.github.johnrengelman.shadow") version "7.0.0"
+    id("io.micronaut.application") version "1.5.0"
+	id "org.cyclonedx.bom" version "1.3.0"
+}
+
+version = "0.1"
+group = "com.example"
+
+repositories {
+    mavenCentral()
+}
+
+micronaut {
+    runtime("netty")
+    testRuntime("junit5")
+    processing {
+        incremental(true)
+        annotations("com.example.*")
+    }
+}
+
+dependencies {
+	// Lombok annotation processor has to be defined before Micronaut's
+	annotationProcessor "org.projectlombok:lombok:1.18.10"
+	compileOnly "org.projectlombok:lombok:1.18.10"
+
+	// Micronaut dependencies
+	annotationProcessor platform("io.micronaut:micronaut-bom:2.5.3")
+	annotationProcessor "io.micronaut:micronaut-inject-java"
+	annotationProcessor "io.micronaut:micronaut-validation"
+	annotationProcessor "org.mapstruct:mapstruct-processor:1.3.0.Final"
+
+	runtimeOnly "ch.qos.logback:logback-classic:1.3.0-alpha4"
+
+	implementation platform("io.micronaut:micronaut-bom:2.5.3")
+	implementation "io.micronaut:micronaut-inject"
+	implementation "io.micronaut:micronaut-validation"
+	implementation "io.micronaut:micronaut-runtime"
+	implementation "io.micronaut:micronaut-http-server-netty"
+	implementation "io.micronaut:micronaut-http-client"
+	implementation "io.micronaut.security:micronaut-security"
+	implementation "io.micronaut:micronaut-management"
+	implementation "io.micronaut.kafka:micronaut-kafka"
+	implementation "io.micronaut.rabbitmq:micronaut-rabbitmq"
+	implementation "io.micronaut.micrometer:micronaut-micrometer-registry-prometheus"
+	implementation "mysql:mysql-connector-java:8.0.17"
+	implementation "org.flywaydb:flyway-core:6.0.0"
+	implementation "org.mapstruct:mapstruct:1.3.0.Final"
+	implementation "org.openapitools:jackson-databind-nullable:0.2.1"
+
+
+
+	// Test dependencies
+	testAnnotationProcessor "org.projectlombok:lombok:1.18.10"
+	testCompileOnly "org.projectlombok:lombok:1.18.10"
+
+	testAnnotationProcessor platform("io.micronaut:micronaut-bom:2.5.3")
+	testAnnotationProcessor "io.micronaut:micronaut-inject-java"
+	testAnnotationProcessor "org.mapstruct:mapstruct-processor:1.3.0.Final"
+
+	testRuntimeOnly "org.junit.jupiter:junit-jupiter-engine"
+
+	testImplementation "io.micronaut.test:micronaut-test-junit5"
+	testImplementation "org.apache.kafka:kafka-clients:2.3.0:test"
+	testImplementation "org.apache.kafka:kafka_2.12:2.3.0"
+	testImplementation "org.apache.kafka:kafka_2.12:2.3.0:test"
+	testImplementation "org.junit.jupiter:junit-jupiter-api"
+	testImplementation "org.junit.jupiter:junit-jupiter-params"
+	testImplementation "org.assertj:assertj-core:3.13.2"
+	testImplementation "org.mockito:mockito-core:"
+	testImplementation "org.mockito:mockito-junit-jupiter:3.0.0"
+	testImplementation "org.testcontainers:testcontainers:1.12.2"
+	testImplementation "org.testcontainers:junit-jupiter:1.12.2"
+	testImplementation "org.testcontainers:rabbitmq:1.12.2"
+	testImplementation "com.github.tomakehurst:wiremock:2.27.2"
+	testImplementation "org.awaitility:awaitility:4.0.3"
+}
+
+
+application {
+    mainClass.set("com.example.Application")
+}
+java {
+    sourceCompatibility = JavaVersion.toVersion("11")
+    targetCompatibility = JavaVersion.toVersion("11")
+}
+
+
+
